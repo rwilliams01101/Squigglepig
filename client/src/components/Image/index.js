@@ -5,9 +5,7 @@ import "./style.css";
 
 // This Container component allows us to use a bootstrap container without worrying about class names
 function Image(props) {
-  return (
-    <img class="image-class" src={props.image} alt='user drawing'/>
-  );
+  return <img className="image-class" src={props.image} alt="user drawing" />;
 }
 
 export default Image;
