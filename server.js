@@ -16,22 +16,22 @@ if (process.env.NODE_ENV === "production") {
 // Add routes, both API and view
 app.use(routes);
 
+// TODO: mLab was depricated, no real need for DB, just added to meet project requirements.
 // Connect to the Mongo DB
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/cluster0",
-  {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }
-)
-.then(() => {
-  server = app.listen(PORT, function() {
-    require("./socketio/index.js")(server);
-    console.log("App now listening at localhost:" + PORT);
-    
+// mongoose.connect(
+//   process.env.MONGODB_URI || "mongodb://localhost/cluster0",
+//   {
+//     useCreateIndex: true,
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+//   }
+// )
+// .then(() => {
+server = app.listen(PORT, function () {
+  require("./socketio/index.js")(server);
+  console.log("App now listening at localhost:" + PORT);
 });
-})
+// })
 
 // Start the API server
 // app.listen(PORT, () =>

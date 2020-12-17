@@ -1,15 +1,17 @@
-const mongoose = require("mongoose");
+// TODO: mLab was depricated, no real need for DB, just added to meet project requirements.
 
-const UserSchema = mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-});
+// const mongoose = require("mongoose");
 
-const User = mongoose.model('User', UserSchema);
-module.exports = User;
+// const UserSchema = mongoose.Schema({
+//   username: {
+//     type: String,
+//     required: true,
+//   },
+//   password: {
+//     type: String,
+//     required: true,
+//   },
+// });
+
+// const User = mongoose.model('User', UserSchema);
+// module.exports = User;

@@ -3,53 +3,47 @@ import SocketContext from "../utils/socket";
 import { Container } from "../components/Container";
 import { Redirect } from "react-router-dom";
 import Canvas from "../components/Canvas";
-import SuggestedPrompt from "../components/SuggestedPrompt";
+// import SuggestedPrompt from "../components/SuggestedPrompt";
 
-import UIfx from 'uifx';
-import buttonconfirm from '../assets/sounds/pigGrunt.mp3'
+import UIfx from "uifx";
+import buttonconfirm from "../assets/sounds/pigGrunt.mp3";
 
 function Drawing() {
+  const buttonConfirm = new UIfx(buttonconfirm, {
+    volume: 0.3,
+  });
 
-  const buttonConfirm = new UIfx(
-    buttonconfirm,
-    {
-      volume: 0.3
-    }
-  )
+  console.log("Drawing Page Mount");
 
+  const { imageData, socket, room } = useContext(SocketContext);
 
-  console.log('Drawing Page Mount')
+  const [gameState, setGameState] = useState(0);
 
-  const { imageData, socket, room } = useContext(SocketContext)
-
-  const [gameState, setGameState] = useState(0)
-
-  console.log('Drawing game state:', gameState);
+  console.log("Drawing game state:", gameState);
 
   useEffect(() => {
-    if(imageData){
-      console.log('imageData', imageData);
-      console.log('image has been submitted');
+    if (imageData) {
+      console.log("imageData", imageData);
+      console.log("image has been submitted");
       submitImage();
     }
-  }, [imageData])
+  }, [imageData]);
 
-  socket.on('guess-image', (data) => {
-    setGameState(2)
-  })
+  socket.on("guess-image", (data) => {
+    setGameState(2);
+  });
 
   const submitImage = () => {
     buttonConfirm.play();
     // e.preventDefault();
-    console.log('submitting image')
-    socket.emit('image-submitted', {imageData, room});
-  }
+    console.log("submitting image");
+    socket.emit("image-submitted", { imageData, room });
+  };
 
-  if(gameState === 1){
-    return (<Redirect to="/drawing" />)
-  }
-  else if (gameState === 2){
-    return (<Redirect to="/waitingforguesses" />)
+  if (gameState === 1) {
+    return <Redirect to="/drawing" />;
+  } else if (gameState === 2) {
+    return <Redirect to="/waitingforguesses" />;
   }
 
   return (
@@ -57,10 +51,8 @@ function Drawing() {
       <div>
         <Canvas />
       </div>
-      <SuggestedPrompt></SuggestedPrompt>
     </Container>
   );
-
 }
 
 export default Drawing;
